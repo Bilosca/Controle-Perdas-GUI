@@ -10,3 +10,9 @@ Este é o primeiro de vários commits, para a evolução do projeto para uma int
 este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 - sqlite3 -> Sistema de gerenciamento de bancos de Dados Relacionais
 - tkinter -> Módulo para criação de Interfaces gráficas
+
+## Atualizações:
+
+### 29/03/21
+- Implementação do método de Inserção de Remessa no Banco de Dados
+- Junto com o cálculo de diferença de dias para o vencimento de um produto
