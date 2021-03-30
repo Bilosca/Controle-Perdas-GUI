@@ -11,7 +11,7 @@ class PerdasDB:
         id INTEGER PRIMARY KEY AUTOINCREMENT,\
         produto TEXT,\
         setor TEXT,\
-        validade INTEGER,\
+        validade TEXT,\
         dias INTEGER)"
 
         self.cursor.execute(criaTabelaQuery)
@@ -25,12 +25,12 @@ class PerdasDB:
 
         diasRestantes = int((validade - atual).days)
 
+        validade = validade.strftime("%d/%m/%Y")
+
         try:
             if not produto == "" and not setor == "":
                 self.cursor.execute(insertQuery,(produto, setor, validade, diasRestantes))
                 self.conex.commit()
-                print(f"{produto}, {setor}, {validade} Inserido com sucesso. ")
-
             else:
                 raise NameError("Campos Vazios")
 
