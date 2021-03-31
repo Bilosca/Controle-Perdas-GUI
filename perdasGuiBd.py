@@ -38,3 +38,10 @@ class PerdasDB:
             print("Preencha os campos")
             print(e)
             pass
+    
+    def procuraRemessa(self, produto):
+        buscaQuery = "SELECT * FROM remessa WHERE produto LIKE ?"
+        self.cursor.execute(buscaQuery,(f"%{produto}%",))
+    
+        for item in self.cursor.fetchall():
+            print(item)

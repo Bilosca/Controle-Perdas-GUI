@@ -3,7 +3,7 @@ import tkinter.font as tkFont
 from PIL import ImageTk, Image
 
 # Import das funcoes e classe
-from perdasGuiMetodos import insereWin
+from perdasGuiMetodos import insereWin, buscaWin
 
 
 class Janela:
@@ -49,11 +49,12 @@ class Janela:
         self.btnInsere.place(relx= 0.5, rely=0.5, anchor="center")
 
         #--- Botao Procura Remessa ---
-        self.btnProcura = tk.Button(self.lateral, text="Procurar Remessa", 
+        self.btnProcura = tk.Button(self.lateral, text="Buscar Remessa", 
         width=largura, 
         height=altura,
         borderwidth=0,
-        font=minhaFont)
+        font=minhaFont,
+        command= lambda : buscaWin(self.main))
 
         self.btnProcura["bg"] = "white"
         self.btnProcura["fg"] = "#262626"
