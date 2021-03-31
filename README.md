@@ -16,3 +16,8 @@ este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 ### 29/03/21
 - Implementação do método de Inserção de Remessa no Banco de Dados
 - Junto com o cálculo de diferença de dias para o vencimento de um produto
+
+### 30/03/21
+- Implementação do método de Busca de Remessa no Banco de Dados
+- Melhor maneira para preenchimento do Formulário "Setor" na janela Insere Remessa
+- Modificações na escrita do código para facilitação de leitura
