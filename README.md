@@ -21,3 +21,4 @@ este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 - Implementação do método de Busca de Remessa no Banco de Dados
 - Melhor maneira para preenchimento do Formulário "Setor" na janela Insere Remessa
 - Modificações na escrita do código para facilitação de leitura
+- Criação da Função que controla e executa as queries
