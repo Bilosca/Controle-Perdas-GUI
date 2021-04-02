@@ -26,3 +26,7 @@ este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 
 ### 01/04/21
 - Criação da Janela que possibilita a visualização dos dados usando a classe Treeview do módulo ttk
+
+### 02/04/21
+- Aperfeiçoamento da janela de visualização dos dados do produto
+- Adicionamento de uma scrollbar dentro da tabela para melhor funcionabilidade e visuabilidade dos dados
