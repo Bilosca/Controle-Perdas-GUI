@@ -45,3 +45,6 @@ class PerdasDB:
     
         for item in self.cursor.fetchall():
             print(item)
+        
+
+            

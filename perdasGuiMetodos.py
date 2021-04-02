@@ -129,5 +129,24 @@ def buscaWin(janela):
                             activeforeground= "white",
                             bd = 0,
                             fg="white",
-                            command= lambda: queryExecuter(operacao=1, entryProduto= entryProduto))
+                            command= lambda: [queryExecuter(operacao=1, entryProduto= entryProduto), window.destroy()])
     btnConfirmar.place(x= 270, y=180, anchor="nw", width=90, height= 30)
+
+def VisualizarTabela(janela):
+    tabela = ttk.Treeview(janela)
+
+    tabela["columns"] = ("primeira", "segunda", "terceira", "quarta")
+    tabela.column("#0", width=80, minwidth=80, stretch=False, anchor=tk.W)
+    tabela.column("primeira", width=270, minwidth=270, stretch=False, anchor=tk.W)
+    tabela.column("segunda", width=250, minwidth=250, stretch=False, anchor=tk.W)
+    tabela.column("terceira", width=200, minwidth=200, stretch=False, anchor=tk.W)
+    tabela.column("quarta", width=98, minwidth=80, stretch=False, anchor=tk.W)
+
+    tabela.heading("#0", text="ID", anchor=tk.CENTER)
+    tabela.heading("primeira", text="PRODUTO", anchor=tk.CENTER)
+    tabela.heading("segunda", text="SETOR", anchor=tk.CENTER)
+    tabela.heading("terceira", text="VALIDADE", anchor=tk.CENTER)
+    tabela.heading("quarta", text="DIAS", anchor=tk.CENTER)
+
+    tabela.insert("","end", text="1", values=("produto1","setor1", "data de validade", "29"))
+    tabela.place(x=450,y=250, anchor="center", width=900, height=500)
