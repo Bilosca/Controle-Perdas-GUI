@@ -12,6 +12,9 @@ tituloFont = ("Times New Roman", 20, "bold")
 textoFont = ("Lucida Grande", 14)
 textoEntry = ("Helvetica", 12)
 
+tabelaFont=("Dotum", 12)
+tabelaHeadingFont=("Dotum", 13, "bold")
+
 def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="", id=0):
     try:
         produto = entryProduto.get().title()
@@ -22,13 +25,15 @@ def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="",
 
     if operacao == 0:
         perdas.insereRemessa(produto, setor, validade)
-
     elif operacao == 1:
         perdas.procuraRemessa(produto)
     elif operacao == 2:
         pass
     elif operacao == 3:
         pass
+
+def limpaCampos(campo):
+    campo.insert(0, "")
 
 # Cria Janela pra Inserimento de uma nova Remessa
 def insereWin(janela):
@@ -90,8 +95,9 @@ def insereWin(janela):
                             activeforeground= "white",
                             bd = 0,
                             fg="white",
-                            command=lambda : queryExecuter(
-                            operacao=0,entryProduto=entryProduto, entrySetor=entrySetor, entryValidade=entryValidade))
+                            command=lambda : [queryExecuter(
+                            operacao=0,entryProduto=entryProduto, entrySetor=entrySetor, entryValidade=entryValidade),
+                            entryProduto.delete(0,"end")])
 
     btnConfirmar.place(x= 380, y= 175, anchor="nw", width=80, height= 21)
 
@@ -132,15 +138,38 @@ def buscaWin(janela):
                             command= lambda: [queryExecuter(operacao=1, entryProduto= entryProduto), window.destroy()])
     btnConfirmar.place(x= 270, y=180, anchor="nw", width=90, height= 30)
 
-def VisualizarTabela(janela):
-    tabela = ttk.Treeview(janela)
+def VisualizaTabela(janela):
+
+    style = ttk.Style()
+    style.configure("mystyle.Treeview",
+                     highlightthickness=0,
+                     font=tabelaFont,
+                     bd=0,
+                     background="#F0F0F0",
+                     rowheight=int(tabelaFont[1] * 2.5))# Configura as fontes do corpo
+
+    style.configure("mystyle.Treeview.Heading",
+                     font=tabelaHeadingFont,
+                     relief="flat",#retira as bordas dos headers
+                     foreground="#333333",
+                     background="#8C8C8C")# Configura o header da tabela
+
+    style.layout("mystyle.Treeview", [("mystyle.Treeview.treearea",{"sticky":"nswe"})])#Remove as bordas
+
+    tabela = ttk.Treeview(janela, style="mystyle.Treeview")
+    scrollBar = ttk.Scrollbar(tabela, orient="vertical")
+
+
+    scrollBar.configure(command=tabela.yview)
+    scrollBar.place(x=995,y=242, anchor="center", height=490)
+    tabela.config(yscrollcommand=scrollBar.set)
 
     tabela["columns"] = ("primeira", "segunda", "terceira", "quarta")
-    tabela.column("#0", width=80, minwidth=80, stretch=False, anchor=tk.W)
-    tabela.column("primeira", width=270, minwidth=270, stretch=False, anchor=tk.W)
-    tabela.column("segunda", width=250, minwidth=250, stretch=False, anchor=tk.W)
-    tabela.column("terceira", width=200, minwidth=200, stretch=False, anchor=tk.W)
-    tabela.column("quarta", width=98, minwidth=80, stretch=False, anchor=tk.W)
+    tabela.column("#0", width=100, minwidth=100, stretch=tk.NO, anchor=tk.W)
+    tabela.column("primeira", width=400, minwidth=400, stretch=tk.NO, anchor=tk.W)
+    tabela.column("segunda", width=250, minwidth=250, stretch=tk.NO, anchor=tk.W)
+    tabela.column("terceira", width=150, minwidth=150, stretch=tk.NO, anchor=tk.W)
+    tabela.column("quarta", width=90, minwidth=90, stretch=tk.NO, anchor=tk.W)
 
     tabela.heading("#0", text="ID", anchor=tk.CENTER)
     tabela.heading("primeira", text="PRODUTO", anchor=tk.CENTER)
@@ -148,5 +177,17 @@ def VisualizarTabela(janela):
     tabela.heading("terceira", text="VALIDADE", anchor=tk.CENTER)
     tabela.heading("quarta", text="DIAS", anchor=tk.CENTER)
 
-    tabela.insert("","end", text="1", values=("produto1","setor1", "data de validade", "29"))
-    tabela.place(x=450,y=250, anchor="center", width=900, height=500)
+    dicionariosProdutos = perdas.displayItems()
+
+    for tupla in dicionariosProdutos:
+        ident = tupla[0]
+        produto = tupla[1]
+        setor = tupla[2]
+        validade = tupla[3]
+        dias = tupla[4]
+
+        tabela.insert("", "end", text=ident, values=(produto, setor, validade, dias))
+    
+
+
+    tabela.place(x=485,y=250, anchor="center", width=1000, height=490)

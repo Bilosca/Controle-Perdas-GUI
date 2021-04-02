@@ -46,5 +46,12 @@ class PerdasDB:
         for item in self.cursor.fetchall():
             print(item)
         
+    def displayItems(self):
+        lista = []
+        displayQuery = "SELECT * FROM remessa"
+        self.cursor.execute(displayQuery,)
 
-            
+        for items in self.cursor.fetchall():
+            lista.append(items)
+
+        return lista         

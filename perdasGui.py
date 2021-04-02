@@ -3,7 +3,7 @@ import tkinter.font as tkFont
 from PIL import ImageTk, Image
 
 # Import das funcoes e classe
-from perdasGuiMetodos import insereWin, buscaWin, VisualizarTabela
+from perdasGuiMetodos import insereWin, buscaWin, VisualizaTabela
 
 
 class Janela:
@@ -29,11 +29,11 @@ class Janela:
 
         #Janela no qual estarao os dados dos produtos
         #900x500 | fundo cinza claro
-        self.tableFrame = tk.Frame(self.main, width=900, height=500)
+        self.tableFrame = tk.Frame(self.main, width=1050, height=490)
         self.tableFrame.config(bg="white")
-        self.tableFrame.place(x=880,y=270, anchor="center")
+        self.tableFrame.place(x=910,y=270, anchor="center")
 
-        VisualizarTabela(self.tableFrame)
+        VisualizaTabela(self.tableFrame)
 
         #Config dos botoes laterais
 
