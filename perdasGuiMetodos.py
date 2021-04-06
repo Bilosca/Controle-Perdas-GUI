@@ -25,6 +25,7 @@ def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="",
 
     if operacao == 0:
         perdas.insereRemessa(produto, setor, validade)
+
     elif operacao == 1:
         perdas.procuraRemessa(produto)
     elif operacao == 2:
@@ -142,11 +143,10 @@ def VisualizaTabela(janela):
 
     style = ttk.Style()
     style.configure("mystyle.Treeview",
-                     highlightthickness=0,
                      font=tabelaFont,
-                     bd=0,
                      background="#F0F0F0",
-                     rowheight=int(tabelaFont[1] * 2.5))# Configura as fontes do corpo
+                     foreground="#212121",
+                     rowheight=int(tabelaFont[1] * 2.5))# Configura as rows da tabela, fonte, borda, cor de fundo, e altura
 
     style.configure("mystyle.Treeview.Heading",
                      font=tabelaHeadingFont,
@@ -179,6 +179,9 @@ def VisualizaTabela(janela):
 
     dicionariosProdutos = perdas.displayItems()
 
+    tabela.tag_configure("10Dias", background="#DAAFA9")
+    tabela.tag_configure("30Dias", background="#AFDBC1")
+
     for tupla in dicionariosProdutos:
         ident = tupla[0]
         produto = tupla[1]
@@ -186,8 +189,14 @@ def VisualizaTabela(janela):
         validade = tupla[3]
         dias = tupla[4]
 
-        tabela.insert("", "end", text=ident, values=(produto, setor, validade, dias))
-    
+        if dias <=10:
+            tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias), tags=("10Dias",))
+        
+        elif dias > 10 and dias <= 30:
+            tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias), tags=("30Dias",))
+        
+        else:
+            tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias))
 
 
     tabela.place(x=485,y=250, anchor="center", width=1000, height=490)

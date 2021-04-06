@@ -1,17 +1,16 @@
 import tkinter as tk
-import tkinter.font as tkFont
 from PIL import ImageTk, Image
 
 # Import das funcoes e classe
-from perdasGuiMetodos import insereWin, buscaWin, VisualizaTabela
+from perdasGuiMetodos import insereWin, buscaWin, VisualizaTabela\
+
+minhaFont=("Dotum", 14,)
+
 
 
 class Janela:
 
     def __init__(self, main):
-
-        # Configuracao de font
-        minhaFont = tkFont.Font(family="Helvetica", size=14)
 
         #Janela Principal:
         #fundo branco, 1400x800 
@@ -28,12 +27,21 @@ class Janela:
         self.lateral.grid_propagate(0)
 
         #Janela no qual estarao os dados dos produtos
-        #900x500 | fundo cinza claro
+        #1050x490 | fundo cinza claro
         self.tableFrame = tk.Frame(self.main, width=1050, height=490)
         self.tableFrame.config(bg="white")
-        self.tableFrame.place(x=910,y=270, anchor="center")
+        self.tableFrame.place(x=890,y=250, anchor="center")
 
         VisualizaTabela(self.tableFrame)
+
+        self.btnRefreshTable = tk.Button(self.main,
+                                         text="Atualizar",
+                                         bg="white",
+                                         fg="#333333",
+                                         bd= 0,
+                                         font=minhaFont,
+                                         command=lambda: VisualizaTabela(self.tableFrame))
+        self.btnRefreshTable.place(x=430, y=530, anchor="center", width=130, height=40)
 
         #Config dos botoes laterais
 
