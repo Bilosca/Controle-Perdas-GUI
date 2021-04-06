@@ -200,3 +200,6 @@ def VisualizaTabela(janela):
 
 
     tabela.place(x=485,y=250, anchor="center", width=1000, height=490)
+
+def atualizaDias():
+    perdas.atualizaDias()

@@ -2,13 +2,15 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 # Import das funcoes e classe
-from perdasGuiMetodos import insereWin, buscaWin, VisualizaTabela\
+from perdasGuiMetodos import insereWin, buscaWin, VisualizaTabela, atualizaDias
 
 minhaFont=("Dotum", 14,)
 
 
 
 class Janela:
+
+    atualizaDias()
 
     def __init__(self, main):
 
