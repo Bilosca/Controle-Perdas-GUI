@@ -30,3 +30,7 @@ este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 ### 02/04/21
 - Aperfeiçoamento da janela de visualização dos dados do produto
 - Adicionamento de uma scrollbar dentro da tabela para melhor funcionabilidade e visuabilidade dos dados
+
+### 05/04/21
+- Adicionamento do botão para atualização da tabela, que antes era necessário reiniciar o programa para atualizar
+- Melhorias para indentificação de produtos perto de vencimento na tabela
