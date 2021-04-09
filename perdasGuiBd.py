@@ -27,17 +27,9 @@ class PerdasDB:
 
         validade = validade.strftime("%d/%m/%Y")
 
-        try:
-            if not produto == "" and not setor == "":
-                self.cursor.execute(insertQuery,(produto, setor, validade, diasRestantes))
-                self.conex.commit()
-            else:
-                raise NameError("Campos Vazios")
-
-        except NameError as e:
-            print("Preencha os campos")
-            print(e)
-            pass
+    
+        self.cursor.execute(insertQuery,(produto, setor, validade, diasRestantes))
+        self.conex.commit()
     
     def procuraRemessa(self, produto):
         buscaQuery = "SELECT * FROM remessa WHERE produto LIKE ?"
