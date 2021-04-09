@@ -34,3 +34,7 @@ este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 ### 05/04/21
 - Adicionamento do botão para atualização da tabela, que antes era necessário reiniciar o programa para atualizar
 - Melhorias para indentificação de produtos perto de vencimento na tabela
+
+### 06/04/21
+- Adicionamento da funcionabilidade de atualizar os dias restantes para o vencimento do produto;<br>
+a função é chamada assim que o aplicativo é executado, atualizando os dias na tabela.
