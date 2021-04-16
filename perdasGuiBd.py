@@ -31,12 +31,6 @@ class PerdasDB:
         self.cursor.execute(insertQuery,(produto, setor, validade, diasRestantes))
         self.conex.commit()
     
-    def procuraRemessa(self, produto):
-        buscaQuery = "SELECT * FROM remessa WHERE produto LIKE ?"
-        self.cursor.execute(buscaQuery,(f"%{produto}%",))
-    
-        for item in self.cursor.fetchall():
-            print(item)
         
     def displayItems(self):
         lista = []

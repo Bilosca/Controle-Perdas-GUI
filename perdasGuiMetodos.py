@@ -7,8 +7,8 @@ import datetime as dt
 perdas = PerdasDB("controle_perdas.db")
 
 tituloFont = ("Times New Roman", 20, "bold")
-textoFont = ("Lucida Grande", 14)
-textoEntry = ("Helvetica", 12)
+textoFont = ("Dotum", 14)
+textoEntry = ("Helvetica", 14)
 
 tabelaFont=("Dotum", 12)
 tabelaHeadingFont=("Dotum", 13, "bold")
@@ -26,11 +26,10 @@ def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="",
                 raise NameError("Campos Vazios")
 
         elif operacao == 1:
-            perdas.procuraRemessa(produto)
+            pass
         elif operacao == 2:
             pass
-        elif operacao == 3:
-            pass
+
 
     except NameError:
         print("os campos estao vazios")
@@ -54,7 +53,9 @@ def VisualizaTabela(janela):
 
     style.layout("mystyle.Treeview", [("mystyle.Treeview.treearea",{"sticky":"nswe"})])#Remove as bordas
 
+    global tabela
     tabela = ttk.Treeview(janela, style="mystyle.Treeview")
+
     scrollBar = ttk.Scrollbar(tabela, orient="vertical")
 
 
@@ -75,10 +76,47 @@ def VisualizaTabela(janela):
     tabela.heading("terceira", text="VALIDADE", anchor=tk.CENTER)
     tabela.heading("quarta", text="DIAS", anchor=tk.CENTER)
 
-    dicionariosProdutos = perdas.displayItems()
-
     tabela.tag_configure("10Dias", background="#DAAFA9")
     tabela.tag_configure("30Dias", background="#AFDBC1")
+
+    tabela.place(x=485,y=250, anchor="center", width=1000, height=490)
+
+    adicionaItem()
+    return tabela
+
+def atualizaDias():
+    perdas.atualizaDias()
+
+def selecionaItem(event, entryProduto, entrySetor, entryValidade, idVar):
+
+    try:
+        selecionado = tabela.focus()
+
+        ident = tabela.item(selecionado, "text")
+
+        produtoTuple = tabela.item(selecionado,"values")
+
+        produto = produtoTuple[0]
+        setor = produtoTuple[1]
+        validade = produtoTuple[2]
+
+        idVar.set(str(ident))
+
+        entryProduto.delete(0, "end")
+        entryProduto.insert(0, produto)
+
+        entrySetor.set(setor)
+
+        entryValidade.set_date(validade)
+    
+        
+
+    except Exception:
+        print("um item e preciso ser selecionado")
+        pass
+
+def adicionaItem():
+    dicionariosProdutos = perdas.displayItems()
 
     for tupla in dicionariosProdutos:
         ident = tupla[0]
@@ -95,10 +133,3 @@ def VisualizaTabela(janela):
         
         else:
             tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias))
-
-
-    tabela.place(x=485,y=250, anchor="center", width=1000, height=490)
-
-def atualizaDias():
-    perdas.atualizaDias()
-
