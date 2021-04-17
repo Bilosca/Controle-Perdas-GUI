@@ -9,7 +9,7 @@ class PerdasDB:
         self.cursor1 = self.conex.cursor()
 
         criaTabelaQuery = "CREATE TABLE IF NOT EXISTS remessa(\
-        id INTEGER PRIMARY KEY AUTOINCREMENT,\
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,\
         produto TEXT,\
         setor TEXT,\
         validade TEXT,\
@@ -30,8 +30,26 @@ class PerdasDB:
     
         self.cursor.execute(insertQuery,(produto, setor, validade, diasRestantes))
         self.conex.commit()
+
+    def editaRemessa(self, ident, produto, setor, validade):
+        editQuery = "UPDATE remessa SET produto = ?, setor = ?, validade = ?, dias = ? WHERE id = ?"
+
+        atual = dt.date.today()
+
+        diasRestantes = int((validade - atual).days)
+
+        validade = validade.strftime("%d/%m/%Y")
+
+
+        self.cursor.execute(editQuery,(produto, setor, validade, diasRestantes, ident))
+        self.conex.commit()
     
-        
+    def deletaRemessa(self, ident):
+        deleteQuery = "DELETE FROM remessa Where id = ?"
+
+        self.cursor.execute(deleteQuery,(ident,))
+        self.conex.commit()
+
     def displayItems(self):
         lista = []
         displayQuery = "SELECT * FROM remessa"

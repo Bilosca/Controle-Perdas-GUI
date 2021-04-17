@@ -128,10 +128,10 @@ class Janela:
 
                                     # Command executa a funcao lambda que executa a funcao insereWin
                                     command=lambda: [pgm.queryExecuter(0,entryProduto, entrySetor, entryValidade),
-                                    entryProduto.delete(0, "end"),
-                                    entryProduto.insert(0,"Produto"),
-                                    tabela.delete(*tabela.get_children()),
-                                    pgm.adicionaItem()])
+                                                     self.resetaDados(entryProduto,
+                                                                      entrySetor,
+                                                                      idString,
+                                                                      tabela)])
         self.btnInsere.place(relx= 0.5, rely=0.55, anchor="center")
 
         self.btnEdita = tk.Button(self.lateral,
@@ -142,7 +142,15 @@ class Janela:
                                     font=minhaFont,
                                     bg="white",
                                     fg="#262626",
-                                    )
+                                    command= lambda: [pgm.queryExecuter(operacao=1,
+                                                                        entryProduto= entryProduto,
+                                                                        entrySetor= entrySetor,
+                                                                        entryValidade=entryValidade,
+                                                                        identEntry=entryId),
+                                                      self.resetaDados(entryProduto,
+                                                                       entrySetor,
+                                                                       idString,
+                                                                       tabela)])                                                
         self.btnEdita.place(relx= 0.5, rely=0.65, anchor="center")
 
         self.btnDeleta = tk.Button(self.lateral,
@@ -152,11 +160,20 @@ class Janela:
                                     borderwidth=0,
                                     font=minhaFont,
                                     bg="white",
-                                    fg="#262626")
+                                    fg="#262626",
+                                    command= lambda: [pgm.queryExecuter(operacao=2,
+                                                                        entryProduto=entryProduto,
+                                                                        entrySetor=entrySetor,
+                                                                        entryValidade=entryValidade,
+                                                                        identEntry= entryId),
+                                                      self.resetaDados(entryProduto,
+                                                                       entrySetor,
+                                                                       idString,
+                                                                       tabela)])
         self.btnDeleta.place(relx= 0.5, rely=0.75, anchor="center")
 
         # Adicionar a Imagem de logo no corpo lateral
-        imagem = Image.open("perdasGui/logo.png")
+        imagem = Image.open("perdasGui/assets/logo.png")
         logo = ImageTk.PhotoImage(imagem)
 
         self.labelLogo = tk.Label(self.lateral, image=logo, borderwidth=0)
@@ -169,6 +186,14 @@ class Janela:
                                                                    entrySetor=entrySetor,
                                                                    entryValidade=entryValidade,
                                                                    idVar=idString))
+
+    def resetaDados(self, produto, setor, ident, tabela):
+        produto.delete(0, "end"),
+        produto.insert(0,"Produto"),
+        setor.current(0)
+        ident.set("ID"),
+        tabela.delete(*tabela.get_children()),
+        pgm.adicionaItem()
         
 
 root = tk.Tk()

@@ -13,26 +13,37 @@ textoEntry = ("Helvetica", 14)
 tabelaFont=("Dotum", 12)
 tabelaHeadingFont=("Dotum", 13, "bold")
 
-def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="", id=0):
+def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="", identEntry=0):
     try:
         produto = entryProduto.get().title()
         setor = entrySetor.get().title()
         validade = entryValidade.get_date()
 
-        if operacao == 0:
-            if not produto == "" and not setor == "":
+        # Caso o campo do produto e setor estejam vazios, ele levanta uma excessao
+        if not produto == "" and not setor == "":
+
+            # Caso a Operacao seja 0; Insere o Produto no banco de dados
+            if operacao == 0:
                 perdas.insereRemessa(produto, setor, validade)
-            else:
-                raise NameError("Campos Vazios")
 
-        elif operacao == 1:
-            pass
-        elif operacao == 2:
-            pass
+            # Caso a Operacao seja 1; Edita o Produto no banco de dados
+            elif operacao == 1:
+                ident = identEntry.get()
+
+                if not identEntry == "": # Se o campo Id estiver vazio levanta uma excessao
+                    perdas.editaRemessa(ident, produto, setor, validade)
+                else:
+                    raise Exception("ID invalido")
+
+            elif operacao == 2:
+                ident = identEntry.get()
+                perdas.deletaRemessa(ident)
+        else:
+            raise Exception("Campos Vazios")
 
 
-    except NameError:
-        print("os campos estao vazios")
+    except Exception as e:
+        print(e)
 
 # Cria Janela pra Inserimento de uma nova Remessa
 
@@ -56,8 +67,11 @@ def VisualizaTabela(janela):
     global tabela
     tabela = ttk.Treeview(janela, style="mystyle.Treeview")
 
-    scrollBar = ttk.Scrollbar(tabela, orient="vertical")
+    style.configure("my.Vertical.TScrollbar",
+                    relief="flat",
+                    borderwidth=0)
 
+    scrollBar = ttk.Scrollbar(tabela, style="my.Vertical.TScrollbar", orient="vertical")
 
     scrollBar.configure(command=tabela.yview)
     scrollBar.place(x=995,y=242, anchor="center", height=490)
@@ -92,7 +106,7 @@ def selecionaItem(event, entryProduto, entrySetor, entryValidade, idVar):
     try:
         selecionado = tabela.focus()
 
-        ident = tabela.item(selecionado, "text")
+        identEntry = tabela.item(selecionado, "text")
 
         produtoTuple = tabela.item(selecionado,"values")
 
@@ -100,7 +114,7 @@ def selecionaItem(event, entryProduto, entrySetor, entryValidade, idVar):
         setor = produtoTuple[1]
         validade = produtoTuple[2]
 
-        idVar.set(str(ident))
+        idVar.set(str(identEntry))
 
         entryProduto.delete(0, "end")
         entryProduto.insert(0, produto)
@@ -119,17 +133,17 @@ def adicionaItem():
     dicionariosProdutos = perdas.displayItems()
 
     for tupla in dicionariosProdutos:
-        ident = tupla[0]
+        identEntry = tupla[0]
         produto = tupla[1]
         setor = tupla[2]
         validade = tupla[3]
         dias = tupla[4]
 
         if dias <=10:
-            tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias), tags=("10Dias",))
+            tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias), tags=("10Dias",))
         
         elif dias > 10 and dias <= 30:
-            tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias), tags=("30Dias",))
+            tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias), tags=("30Dias",))
         
         else:
-            tabela.insert("", "end", text=ident,values=(produto, setor, validade, dias))
+            tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias))
