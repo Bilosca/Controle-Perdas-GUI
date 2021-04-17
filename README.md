@@ -38,3 +38,10 @@ este programa utiliza da Linguagem python, e dos seus seguintes módulos:
 ### 06/04/21
 - Adicionamento da funcionabilidade de atualizar os dias restantes para o vencimento do produto;<br>
 a função é chamada assim que o aplicativo é executado, atualizando os dias na tabela.
+
+### 15/04/21
+- Após 9 dias trabalhando no código porem sem fazer nenhum commit, decidi fazer mudanças na estrutura do código e adicionamento de novas funções;
+- Mudanças nos campos de Inserimento de Dados, cujo agora ficam na janela principal
+- Mudanças na função de Inserir Remessa aonde já não abre mais uma nova janela
+- Adicionamento da Função de Selecionar um item da tabela com um double-click no mouse, no qual distribuirá seus dados para os campos
+- Exclusão da Função de Busca de Remessa para uma melhor análise de como implementar ao código
