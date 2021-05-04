@@ -86,3 +86,4 @@ class PerdasDB:
             # Exclui item caso esteja os dias seja menor ou igual a 0
             if diasRestantes <= 0:
                 self.cursor.execute(deletaQuery, (ident,))
+                self.conex.commit()

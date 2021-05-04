@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
+
 
 from perdasGuiBd import PerdasDB
 import datetime as dt
 
-perdas = PerdasDB("controle_perdas.db")
 
 tituloFont = ("Times New Roman", 20, "bold")
 textoFont = ("Dotum", 14)
@@ -13,7 +14,38 @@ textoEntry = ("Helvetica", 14)
 tabelaFont=("Dotum", 12)
 tabelaHeadingFont=("Dotum", 13, "bold")
 
+
+def IniciaArquivo(main, tabela):
+
+    try:    
+        arquivo = filedialog.askopenfilename(parent=main,
+                                             initialdir="/desktop/",
+                                             title = "selecione o arquivo",
+                                             filetypes=[("DataBase files", "*.db*")])
+        
+        if not arquivo:
+            pass
+
+        else: 
+            global perdas
+            perdas = PerdasDB(arquivo)
+            tabela.delete(*tabela.get_children())
+            atualizaDias()
+            adicionaItem()
+
+    except Exception:
+        pass
+
+def resetaDados(produto, setor, ident, tabela):
+    produto.delete(0, "end"),
+    produto.insert(0,"Produto"),
+    setor.current(0)
+    ident.set("ID"),
+    tabela.delete(*tabela.get_children()),
+    adicionaItem()
+
 def queryExecuter(operacao=0, entryProduto= "", entrySetor="", entryValidade="", identEntry=0):
+
     try:
         produto = entryProduto.get().title()
         setor = entrySetor.get().title()
@@ -95,7 +127,6 @@ def VisualizaTabela(janela):
 
     tabela.place(x=485,y=250, anchor="center", width=1000, height=490)
 
-    adicionaItem()
     return tabela
 
 def atualizaDias():
@@ -122,8 +153,6 @@ def selecionaItem(event, entryProduto, entrySetor, entryValidade, idVar):
         entrySetor.set(setor)
 
         entryValidade.set_date(validade)
-    
-        
 
     except Exception:
         print("um item e preciso ser selecionado")
