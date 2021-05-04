@@ -45,3 +45,7 @@ a função é chamada assim que o aplicativo é executado, atualizando os dias n
 - Mudanças na função de Inserir Remessa aonde já não abre mais uma nova janela
 - Adicionamento da Função de Selecionar um item da tabela com um double-click no mouse, no qual distribuirá seus dados para os campos
 - Exclusão da Função de Busca de Remessa para uma melhor análise de como implementar ao código
+
+### 16/04/21
+- Inserimento das funções "Editar Remessa" e "Deletar Remessa"
+- compactação das funções passadas para resetar os campos aos estados originais, para apenas uma função
