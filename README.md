@@ -56,3 +56,6 @@ a função é chamada assim que o aplicativo é executado, atualizando os dias n
 - remoção de botões no menu principal
 - inserimento de novos botões e novas funções,
 - possibilidade de caminhar por arquivos, abrir um banco de dados ja existente
+
+### 06/05/21
+- Modificação da função "adicionarItem" para ordenar a ordem dos items na tabela para uma melhor visualização e leitura dos dados
