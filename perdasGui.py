@@ -150,12 +150,14 @@ class Janela:
         self.editarBtn.place(x=1185, y=515, anchor="nw", width=50, height=50)
 
         #Adicionar a Imagem para Excluir o item
-        imagemLixo = tk.PhotoImage(file="perdasGui/assets/lixeira.png")
+        imagemLixo = tk.PhotoImage(file="perdasGui/assets/lixeira1.png")
         
         self.excluirBtn = tk.Button(self.main,
                                        image=imagemLixo,
                                        relief="flat",
                                        highlightthickness=0,
+                                       activebackground="#F2695E",
+                                       bg="#e55a58",
                                        command= lambda:[pgm.queryExecuter(operacao=2,
                                                                         entryProduto=entryProduto,
                                                                         entrySetor=entrySetor,
@@ -169,12 +171,14 @@ class Janela:
         self.excluirBtn.place(x=1243, y=515, anchor="nw", width=50, height=50)
 
         # Adicionar Imagem de Inserimento de item
-        imagemAdicao = tk.PhotoImage(file="perdasGui/assets/sum.png")
+        imagemAdicao = tk.PhotoImage(file="perdasGui/assets/sum1.png")
         
         self.InserirBtn = tk.Button(self.main,
                                        image=imagemAdicao,
                                        relief="flat",
                                        highlightthickness=0,
+                                       activebackground="#9AF598",
+                                       bg="#92e891",
                                        command= lambda:[pgm.queryExecuter(0,entryProduto, entrySetor, entryValidade),
                                                         pgm.resetaDados(entryProduto,
                                                                         entrySetor,
@@ -197,9 +201,7 @@ class Janela:
                                                                    entrySetor=entrySetor,
                                                                    entryValidade=entryValidade,
                                                                    idVar=idString))
-        
-        pgm.IniciaArquivo(self.main,
-                          tabela)
+
 
 
 root = tk.Tk()

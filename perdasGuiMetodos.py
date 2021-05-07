@@ -116,11 +116,25 @@ def VisualizaTabela(janela):
     tabela.column("terceira", width=150, minwidth=150, stretch=tk.NO, anchor=tk.W)
     tabela.column("quarta", width=90, minwidth=90, stretch=tk.NO, anchor=tk.W)
 
-    tabela.heading("#0", text="ID", anchor=tk.CENTER)
-    tabela.heading("primeira", text="PRODUTO", anchor=tk.CENTER)
-    tabela.heading("segunda", text="SETOR", anchor=tk.CENTER)
-    tabela.heading("terceira", text="VALIDADE", anchor=tk.CENTER)
-    tabela.heading("quarta", text="DIAS", anchor=tk.CENTER)
+    tabela.heading("#0", text="ID", anchor=tk.CENTER,
+                    command= lambda:[tabela.delete(*tabela.get_children()),
+                                     adicionaItem(0)])
+
+    tabela.heading("primeira", text="PRODUTO", anchor=tk.CENTER,
+                    command= lambda:[tabela.delete(*tabela.get_children()),
+                                     adicionaItem(1)])
+
+    tabela.heading("segunda", text="SETOR", anchor=tk.CENTER,
+                    command= lambda:[tabela.delete(*tabela.get_children()),
+                                     adicionaItem(2)])
+
+    tabela.heading("terceira", text="VALIDADE", anchor=tk.CENTER,
+                    command= lambda:[tabela.delete(*tabela.get_children()),
+                                     adicionaItem(4)])
+
+    tabela.heading("quarta", text="DIAS", anchor=tk.CENTER,
+                    command= lambda:[tabela.delete(*tabela.get_children()),
+                                     adicionaItem(4)])
 
     tabela.tag_configure("10Dias", background="#DAAFA9")
     tabela.tag_configure("30Dias", background="#AFDBC1")
@@ -158,21 +172,26 @@ def selecionaItem(event, entryProduto, entrySetor, entryValidade, idVar):
         print("um item e preciso ser selecionado")
         pass
 
-def adicionaItem():
-    dicionariosProdutos = perdas.displayItems()
+def adicionaItem(column=0):
+    try:
+        listaProdutos = perdas.displayItems()
 
-    for tupla in dicionariosProdutos:
-        identEntry = tupla[0]
-        produto = tupla[1]
-        setor = tupla[2]
-        validade = tupla[3]
-        dias = tupla[4]
+        listaProdutoSorted = sorted(listaProdutos, key=lambda x: x[column])
 
-        if dias <=10:
-            tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias), tags=("10Dias",))
-        
-        elif dias > 10 and dias <= 30:
-            tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias), tags=("30Dias",))
-        
-        else:
-            tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias))
+        for tupla in listaProdutoSorted:
+            identEntry = tupla[0]
+            produto = tupla[1]
+            setor = tupla[2]
+            validade = tupla[3]
+            dias = tupla[4]
+
+            if dias <=10:
+                tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias), tags=("10Dias",))
+            
+            elif dias > 10 and dias <= 30:
+                tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias), tags=("30Dias",))
+            
+            else:
+                tabela.insert("", "end", text=identEntry,values=(produto, setor, validade, dias))
+    except Exception:
+        pass
