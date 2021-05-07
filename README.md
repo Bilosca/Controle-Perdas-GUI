@@ -49,3 +49,10 @@ a função é chamada assim que o aplicativo é executado, atualizando os dias n
 ### 16/04/21
 - Inserimento das funções "Editar Remessa" e "Deletar Remessa"
 - compactação das funções passadas para resetar os campos aos estados originais, para apenas uma função
+
+### 03/05/21
+- Após algumas semanas sem fazer nenhum novo commit, fui realizando mudanças no código, cujo umas não foi ficando do meu agrado, até chegar neste momento;
+- Mudanças nas funções e código,
+- remoção de botões no menu principal
+- inserimento de novos botões e novas funções,
+- possibilidade de caminhar por arquivos, abrir um banco de dados ja existente
